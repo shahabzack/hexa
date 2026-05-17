@@ -86,7 +86,7 @@ export function Products() {
           onMouseLeave={() => setIsAutoPlaying(true)}
         >
           {/* Main Card */}
-          <div className="bg-white/[0.02] rounded-[2rem] border border-white/[0.05] p-8 md:p-14 relative overflow-hidden transition-all duration-500 hover:bg-white/[0.03]">
+          <div className="bg-white/[0.02] rounded-[2rem] border border-white/[0.05] p-6 sm:p-8 md:p-14 relative overflow-hidden transition-all duration-500 hover:bg-white/[0.03]">
 
             <AnimatePresence mode="wait">
               <motion.div
@@ -95,10 +95,10 @@ export function Products() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -30 }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="flex flex-col lg:flex-row items-center gap-12 md:gap-20 relative z-10"
+                className="flex flex-col lg:flex-row items-center gap-8 md:gap-12 lg:gap-20 relative z-10"
               >
                 {/* Product Image Side */}
-                <div className="w-full lg:w-2/5 flex justify-center items-center relative min-h-[300px] md:min-h-[450px]">
+                <div className="w-full lg:w-2/5 flex justify-center items-center relative min-h-[200px] sm:min-h-[250px] md:min-h-[450px] py-4 md:py-0">
                   {activeProduct.image ? (
                     <motion.img
                       initial={{ scale: 0.9, opacity: 0 }}
@@ -106,14 +106,14 @@ export function Products() {
                       transition={{ duration: 0.7, delay: 0.1 }}
                       src={activeProduct.image}
                       alt={activeProduct.name}
-                      className={`relative z-10 w-full max-w-[280px] md:max-w-[400px] h-auto object-contain drop-shadow-2xl ${activeProduct.filter}`}
+                      className={`relative z-10 w-full max-w-[120px] sm:max-w-[180px] md:max-w-[400px] h-auto max-h-[180px] sm:max-h-[240px] md:max-h-none object-contain drop-shadow-2xl ${activeProduct.filter}`}
                     />
                   ) : (
                     <motion.div
                       initial={{ scale: 0.9, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       transition={{ duration: 0.7, delay: 0.1 }}
-                      className="relative z-10 w-full max-w-[280px] md:max-w-[320px] aspect-[3/4] rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md flex flex-col items-center justify-center gap-6 drop-shadow-2xl"
+                      className="relative z-10 w-full max-w-[200px] sm:max-w-[280px] md:max-w-[320px] aspect-[3/4] rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md flex flex-col items-center justify-center gap-6 drop-shadow-2xl"
                     >
                       <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
                         <ShoppingBag className="w-8 h-8 text-gray-400" />
@@ -132,7 +132,7 @@ export function Products() {
                     {activeProduct.category}
                   </span>
 
-                  <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-4 leading-tight">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-3 md:mb-4 leading-tight">
                     {activeProduct.name}
                   </h3>
 
@@ -144,11 +144,11 @@ export function Products() {
                     {activeProduct.description}
                   </p>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-6 mb-10 w-full">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 md:gap-y-4 gap-x-6 mb-8 md:mb-10 w-full">
                     {activeProduct.features.map((feature, fIndex) => (
                       <div key={fIndex} className="flex items-start gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                        <span className="text-gray-300 text-sm font-light leading-snug">{feature}</span>
+                        <CheckCircle2 className="w-4 h-4 md:w-5 md:h-5 text-primary shrink-0 mt-0.5 md:mt-0" />
+                        <span className="text-gray-300 text-xs sm:text-sm font-light leading-snug">{feature}</span>
                       </div>
                     ))}
                   </div>
