@@ -15,13 +15,18 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full md:w-auto">
           <div className="flex flex-col gap-4">
             <h4 className="text-primary text-xs tracking-widest font-semibold uppercase mb-2">Contact Us</h4>
-            <a href="#" className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors text-sm font-light group">
-              <Phone className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
-              +1 (555) 123-4567
-            </a>
-            <a href="#" className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors text-sm font-light group">
+            <div className="flex flex-col gap-3">
+              <a href="tel:+917012490166" className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors text-sm font-light group">
+                <Phone className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
+                +91 70124 90166
+              </a>
+              <a href="tel:+918281351870" className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors text-sm font-light group ml-7">
+                +91 82813 51870
+              </a>
+            </div>
+            <a href="mailto:hexaautocare@gmail.com" className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors text-sm font-light group mt-2">
               <Mail className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
-              contact@hexaautocare.com
+              hexaautocare@gmail.com
             </a>
           </div>
 
@@ -30,9 +35,8 @@ export function Footer() {
             <div className="flex items-start gap-3 text-gray-400 text-sm font-light leading-relaxed group cursor-default">
               <MapPin className="w-4 h-4 text-primary mt-1 group-hover:scale-110 transition-transform shrink-0" />
               <span>
-                123 Automotive Way<br />
-                Suite 400<br />
-                Los Angeles, CA 90015
+                Ulliyeri, Kozhikode<br />
+                Kerala, 673323
               </span>
             </div>
           </div>
@@ -45,7 +49,7 @@ export function Footer() {
           &copy; {new Date().getFullYear()} Hexa AutoCare. All rights reserved.
         </p>
         <div className="flex items-center gap-4">
-          <a href="#" className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-primary/50 transition-colors">
+          <a href="https://www.instagram.com/hexa_auto_care?igsh=MWp1eTdla2YxanJybQ==" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-primary/50 transition-colors">
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
               <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>

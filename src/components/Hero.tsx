@@ -6,8 +6,8 @@ const products = [
   {
     id: 1,
     title: "Uncompromising\nShine.",
-    subtitle: "Premium Ceramic Care",
-    desc: "Engineered for the perfectionist. Our ceramic-infused formula delivers an immaculate mirror finish and durable protection in a single step.",
+    subtitle: "Hexa Ceramic Foam Shampoo",
+    desc: "Engineered with advanced ceramic-infused foam technology, this high-performance shampoo gently removes dirt, dust, mud, and road grime while enhancing your vehicle’s surface protection.",
     image: "/bottle.png",
     glowColor: "bg-primary/20",
     filter: ""
@@ -15,9 +15,9 @@ const products = [
   {
     id: 2,
     title: "Ultimate\nProtection.",
-    subtitle: "Advanced Graphene Seal",
-    desc: "Next-generation surface science. Creates an impenetrable barrier against environmental contaminants with extreme water beading capabilities.",
-    image: "/bottle.png",
+    subtitle: "Hexa Exterior Silicone Polish",
+    desc: "Designed to deliver a ceramic-like finish, this advanced silicone polish enhances paint brightness, restores smoothness, and creates a water-repellent protective layer for long-lasting shine.",
+    image: "",
     glowColor: "bg-blue-500/20",
     filter: "hue-rotate-180"
   }
@@ -47,15 +47,13 @@ export function Hero() {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#050505] pt-24 pb-12">
-      {/* Very subtle background texture / radial glow */}
-      <div className="absolute inset-0 z-0 pointer-events-none radial-glow opacity-50" />
       
       {/* Extremely subtle Car Reference with Blink Animation */}
       <motion.div 
         className="absolute inset-0 z-0 pointer-events-none mix-blend-screen"
-        initial={{ opacity: 0.07, filter: "grayscale(100%)" }}
+        initial={{ opacity: 0.15, filter: "grayscale(100%)" }}
         animate={{
-          opacity: isFlashing ? [0.07, 0.15, 0.07] : 0.07,
+          opacity: isFlashing ? [0.15, 0.25, 0.15] : 0.15,
           filter: isFlashing ? ["grayscale(100%)", "grayscale(50%)", "grayscale(100%)"] : "grayscale(100%)"
         }}
         transition={{ duration: 0.8, ease: "easeInOut" }}
@@ -122,30 +120,43 @@ export function Hero() {
 
         {/* Right Product Image - Minimal Studio Setup */}
         <div className="w-full md:w-1/2 relative flex justify-center items-center h-[60vh] md:h-auto">
-           {/* Studio Floor Reflection/Shadow */}
-           <AnimatePresence mode="wait">
-             <motion.div 
-               key={`glow-${activeProduct.id}`}
-               initial={{ opacity: 0 }}
-               animate={{ opacity: 1 }}
-               exit={{ opacity: 0 }}
-               transition={{ duration: 0.5 }}
-               className={`absolute bottom-0 md:bottom-10 w-3/4 h-8 ${activeProduct.glowColor} blur-2xl rounded-[100%]`} 
-             />
-           </AnimatePresence>
            
            <AnimatePresence mode="wait">
-             <motion.img
-              key={`img-${activeProduct.id}`}
-              initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
-              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-              exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              src={activeProduct.image}
-              alt={activeProduct.title}
-              onClick={handleNext}
-              className={`relative z-30 w-full max-w-[550px] h-auto object-contain drop-shadow-2xl cursor-pointer hover:scale-105 transition-transform duration-300 ${activeProduct.filter}`}
-            />
+             {activeProduct.image ? (
+               <motion.img
+                key={`img-${activeProduct.id}`}
+                initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
+                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                src={activeProduct.image}
+                alt={activeProduct.title}
+                onClick={handleNext}
+                className={`relative z-30 w-full max-w-[550px] h-auto object-contain drop-shadow-2xl cursor-pointer hover:scale-105 transition-transform duration-300 ${activeProduct.filter}`}
+              />
+             ) : (
+               <motion.div
+                key={`img-${activeProduct.id}`}
+                initial={{ opacity: 0, scale: 0.8, filter: "blur(10px)" }}
+                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                onClick={handleNext}
+                className={`relative z-30 w-full max-w-[350px] aspect-[3/4] rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md flex flex-col items-center justify-center gap-6 cursor-pointer hover:scale-105 hover:border-primary/30 hover:bg-white/10 transition-all duration-500 drop-shadow-2xl ${activeProduct.filter}`}
+              >
+                <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
+                  <svg className="w-8 h-8 text-gray-400 group-hover:text-primary transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                  </svg>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <span className="text-primary font-bold tracking-[0.2em] uppercase text-lg">Coming Soon</span>
+                  <span className="text-gray-400 text-sm font-light text-center px-8">Product packaging is currently being updated</span>
+                </div>
+              </motion.div>
+             )}
            </AnimatePresence>
         </div>
 

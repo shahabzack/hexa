@@ -1,40 +1,65 @@
-import { motion } from 'framer-motion';
-import { ShoppingBag, CheckCircle2 } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ShoppingBag, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const products = [
   {
     id: 1,
-    name: 'Premium Ceramic Care',
+    name: 'Hexa Ceramic Foam Shampoo',
     category: 'Ceramic Shampoo',
-    price: '$29.99',
-    description: 'Engineered for the perfectionist. Our ceramic-infused formula delivers an immaculate mirror finish and durable protection in a single step.',
-    features: ['SiO2 Infused Formula', 'pH Neutral & Safe', 'High-Foam Action', 'Mirror-like Finish'],
+    price: '',
+    description: 'Engineered with advanced ceramic-infused foam technology, this high-performance shampoo gently removes dirt, dust, mud, and road grime while enhancing your vehicle’s surface protection. Its rich, thick foam provides a scratch-free wash experience and leaves behind a smooth, glossy finish with water-beading performance.',
+    features: ['Powerful deep-cleaning foam', 'Ceramic-enhanced shine & protection', 'Safe on paint, coating, and wraps', 'Helps repel water and dust', 'Streak-free glossy finish', 'pH-balanced and easy to rinse'],
     image: '/bottle.png',
     glow: 'bg-primary/20',
     filter: '',
-    whatsappMessage: "Hi, I'm interested in purchasing the Premium Ceramic Care Shampoo."
+    whatsappMessage: "Hey I want to buy Hexa Ceramic Foam Shampoo"
   },
   {
     id: 2,
-    name: 'Advanced Graphene Seal',
-    category: 'Graphene Coating',
-    price: '$45.00',
-    description: 'Next-generation surface science. Creates an impenetrable barrier against environmental contaminants with extreme water beading capabilities.',
-    features: ['Graphene-Oxide Tech', '12-Month Protection', 'Extreme Water Beading', 'Deep Color Enhancement'],
-    image: '/bottle.png',
+    name: 'Hexa Exterior Silicone Polish',
+    category: 'Exterior Polish',
+    price: '',
+    description: 'Give your car a deep glossy shine with Hexa Exterior Silicone Polish, the ultimate exterior protection and finishing solution. Designed to deliver a ceramic-like finish, this advanced silicone polish enhances paint brightness, restores smoothness, and creates a water-repellent protective layer for long-lasting shine. When used after washing with Hexa Ceramic Foam Shampoo, the shine and protection can last up to 5 days, keeping your vehicle looking fresh, clean, and showroom-ready.',
+    features: ['Ceramic coating–like glossy finish', 'Long-lasting water beading protection', 'Enhances paint depth and smoothness', 'Protects against dust and light dirt', 'Easy spray-and-wipe application', 'Best performance with Hexa Ceramic Foam Shampoo'],
+    image: '',
     glow: 'bg-blue-500/20',
     filter: 'hue-rotate-180',
-    whatsappMessage: "Hi, I'm interested in purchasing the Advanced Graphene Seal."
+    whatsappMessage: "Hey I want to buy Hexa Exterior Silicone Polish"
   }
 ];
 
 export function Products() {
-  const whatsappNumber = "15551234567"; // Using the dummy number from Footer
+  const whatsappNumber = "918281351870";
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % products.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [isAutoPlaying]);
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % products.length);
+    setIsAutoPlaying(false);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + products.length) % products.length);
+    setIsAutoPlaying(false);
+  };
+
+  const activeProduct = products[currentIndex];
 
   return (
-    <section id="products" className="py-32 bg-[#050505] relative overflow-hidden border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-8 md:px-16 relative z-10">
-        <div className="flex flex-col items-center text-center mb-24">
+    <section id="products" className="py-24 md:py-32 bg-[#050505] relative overflow-hidden border-t border-white/5">
+      <div className="max-w-6xl mx-auto px-6 md:px-12 relative z-10">
+        <div className="flex flex-col items-center text-center mb-16 md:mb-20">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -44,71 +69,141 @@ export function Products() {
           >
             Our Collection
           </motion.p>
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.1]"
+            className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.1]"
           >
             Engineered Perfection.
           </motion.h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {products.map((product, index) => (
-            <motion.div 
-              key={product.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 + index * 0.1 }}
-              className="flex flex-col bg-white/[0.02] rounded-3xl border border-white/[0.05] p-6 md:p-8 hover:bg-white/[0.04] transition-colors group"
-            >
-              {/* Product Image */}
-              <div className="w-full relative flex justify-center items-center h-[200px] mb-8">
-                <div className={`absolute bottom-1/4 w-1/2 h-1/4 ${product.glow} blur-3xl rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-700`} />
-                <img 
-                  src={product.image} 
-                  alt={product.name} 
-                  className={`relative z-10 h-full object-contain drop-shadow-2xl ${product.filter} group-hover:scale-110 transition-transform duration-700`}
-                />
-              </div>
+        <div
+          className="relative max-w-5xl mx-auto group"
+          onMouseEnter={() => setIsAutoPlaying(false)}
+          onMouseLeave={() => setIsAutoPlaying(true)}
+        >
+          {/* Main Card */}
+          <div className="bg-white/[0.02] rounded-[2rem] border border-white/[0.05] p-8 md:p-14 relative overflow-hidden transition-all duration-500 hover:bg-white/[0.03]">
 
-              {/* Product Info */}
-              <div className="w-full flex flex-col items-start h-full">
-                <span className="text-gray-500 text-[10px] font-semibold tracking-[0.2em] uppercase mb-2">
-                  {product.category}
-                </span>
-                <h3 className="text-xl md:text-2xl font-bold text-white tracking-tight mb-2">
-                  {product.name}
-                </h3>
-                <p className="text-lg font-light text-primary mb-4">{product.price}</p>
-                <p className="text-gray-400 text-sm leading-relaxed mb-6 font-light flex-grow">
-                  {product.description}
-                </p>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8 w-full">
-                  {product.features.map((feature, fIndex) => (
-                    <div key={fIndex} className="flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
-                      <span className="text-gray-300 text-xs font-light">{feature}</span>
-                    </div>
-                  ))}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeProduct.id}
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -30 }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="flex flex-col lg:flex-row items-center gap-12 md:gap-20 relative z-10"
+              >
+                {/* Product Image Side */}
+                <div className="w-full lg:w-2/5 flex justify-center items-center relative min-h-[300px] md:min-h-[450px]">
+                  {activeProduct.image ? (
+                    <motion.img
+                      initial={{ scale: 0.9, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ duration: 0.7, delay: 0.1 }}
+                      src={activeProduct.image}
+                      alt={activeProduct.name}
+                      className={`relative z-10 w-full max-w-[280px] md:max-w-[400px] h-auto object-contain drop-shadow-2xl ${activeProduct.filter}`}
+                    />
+                  ) : (
+                    <motion.div
+                      initial={{ scale: 0.9, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ duration: 0.7, delay: 0.1 }}
+                      className="relative z-10 w-full max-w-[280px] md:max-w-[320px] aspect-[3/4] rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md flex flex-col items-center justify-center gap-6 drop-shadow-2xl"
+                    >
+                      <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
+                        <ShoppingBag className="w-8 h-8 text-gray-400" />
+                      </div>
+                      <div className="flex flex-col items-center gap-2">
+                        <span className="text-primary font-bold tracking-[0.2em] uppercase text-sm md:text-base">Coming Soon</span>
+                        <span className="text-gray-500 text-xs font-light text-center px-6">Packaging being updated</span>
+                      </div>
+                    </motion.div>
+                  )}
                 </div>
 
-                <a 
-                  href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(product.whatsappMessage)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="glass-button text-white px-6 py-3 rounded-full text-xs font-semibold tracking-widest uppercase flex items-center justify-center gap-3 group w-full"
-                >
-                  <ShoppingBag className="w-4 h-4 text-primary group-hover:-translate-y-1 transition-transform" />
-                  Buy via WhatsApp
-                </a>
-              </div>
-            </motion.div>
-          ))}
+                {/* Product Info Side */}
+                <div className="w-full lg:w-3/5 flex flex-col items-start">
+                  <span className="text-gray-400 text-[10px] md:text-xs font-semibold tracking-[0.2em] uppercase mb-4 border border-white/10 px-4 py-1.5 rounded-full bg-white/5">
+                    {activeProduct.category}
+                  </span>
+
+                  <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-4 leading-tight">
+                    {activeProduct.name}
+                  </h3>
+
+                  {activeProduct.price && (
+                    <p className="text-xl md:text-2xl font-light text-primary mb-6">{activeProduct.price}</p>
+                  )}
+
+                  <p className="text-gray-400 text-sm md:text-base leading-relaxed mb-8 font-light max-w-xl">
+                    {activeProduct.description}
+                  </p>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-6 mb-10 w-full">
+                    {activeProduct.features.map((feature, fIndex) => (
+                      <div key={fIndex} className="flex items-start gap-3">
+                        <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                        <span className="text-gray-300 text-sm font-light leading-snug">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <a
+                    href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(activeProduct.whatsappMessage)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="glass-button text-white px-8 py-4 rounded-full text-xs font-semibold tracking-widest uppercase flex items-center justify-center gap-3 group w-full sm:w-auto hover:bg-white/10 transition-colors border border-white/10"
+                  >
+                    <ShoppingBag className="w-4 h-4 text-primary group-hover:-translate-y-1 transition-transform" />
+                    Buy via WhatsApp
+                  </a>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Desktop Navigation Arrows (Inside Card) */}
+            <div className="absolute inset-y-0 left-0 items-center justify-start pointer-events-none px-4 md:px-8 z-20 hidden lg:flex opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <button onClick={handlePrev} className="p-3 rounded-full bg-black/60 hover:bg-black/90 transition-colors border border-white/10 text-white pointer-events-auto backdrop-blur-md" aria-label="Previous product">
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+            </div>
+            <div className="absolute inset-y-0 right-0 items-center justify-end pointer-events-none px-4 md:px-8 z-20 hidden lg:flex opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <button onClick={handleNext} className="p-3 rounded-full bg-black/60 hover:bg-black/90 transition-colors border border-white/10 text-white pointer-events-auto backdrop-blur-md" aria-label="Next product">
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            </div>
+          </div>
+
+          {/* Dots & Mobile Navigation (Below Card) */}
+          <div className="flex items-center justify-center gap-8 mt-10">
+            <button onClick={handlePrev} className="p-3 rounded-full bg-white/5 hover:bg-white/10 transition-colors border border-white/10 text-white lg:hidden" aria-label="Previous product">
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+
+            <div className="flex gap-4">
+              {products.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    setCurrentIndex(idx);
+                    setIsAutoPlaying(false);
+                  }}
+                  className={`h-2.5 rounded-full transition-all duration-300 ${idx === currentIndex ? 'bg-primary w-10' : 'bg-white/20 hover:bg-white/40 w-2.5'}`}
+                  aria-label={`Go to product ${idx + 1}`}
+                />
+              ))}
+            </div>
+
+            <button onClick={handleNext} className="p-3 rounded-full bg-white/5 hover:bg-white/10 transition-colors border border-white/10 text-white lg:hidden" aria-label="Next product">
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+
         </div>
       </div>
     </section>
